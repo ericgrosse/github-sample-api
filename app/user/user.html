@@ -1,0 +1,40 @@
+<div class="container">
+
+	<h1>
+		<button class="btn btn-default" ng-click="goBack()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+		{{data.login}}
+	</h1>
+
+	<div class="row">
+		<div class="col-md-8">
+			<div class="panel panel-default">
+				<div class="panel-body">
+
+					<img class="pull-left user-img" ng-src="{{data.avatar_url}}" style="width:230px;height:230px;">
+
+					<p>ID: {{data.id}}</p>
+					<p>Type: {{data.type}}</p>
+					<p>Site Admin: {{data.site_admin}}</p>
+					<p>Location: {{data.location | nonEmpty}}</p>
+					<p>Bio: {{data.bio | nonEmpty}}</p>
+					<p>
+						Blog: 
+						<a ng-show="data.blog.length > 0" ng-href="{{data.blog}}">{{data.blog}}</a>
+						<span ng-hide="data.blog.length > 0">Not specified</span>
+					</p>
+
+					<p>Company: {{data.company | nonEmpty}}</p>
+					<p>Email: {{data.email | nonEmpty}}</p>
+					<p>Created At: {{data.created_at | date: 'MM/dd/yyyy'}}</p>
+					<p>Updated At: {{data.updated_at | date: 'MM/dd/yyyy'}}</p>
+					<p>Followers: {{data.followers}}</p>
+					<p>Following: {{data.following}}</p>
+					<p>Public Gists: {{data.public_gists}}</p>
+					<p>Public Repositories: {{data.public_repos}}</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

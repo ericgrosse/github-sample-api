@@ -1,0 +1,17 @@
+<div class="container">
+
+	<h1>
+		<button class="btn btn-default" ng-click="goBack()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+		Languages
+		
+	</h1>
+
+	<h3>{{emptyMessage}}</h3>
+
+	<ul class="list-unstyled">
+		<li ng-repeat="(key, val) in data">
+			<h4>{{key}} : {{val}}</h4>
+		</li>
+	</ul>
+
+</div>

@@ -1,0 +1,29 @@
+<div class="container">
+
+	<h1>
+		<button class="btn btn-default" ng-click="goBack()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+		Tags
+	</h1>
+
+	<h3>{{emptyMessage}}</h3>
+
+	<div class="row" ng-repeat="item in data">
+		<div class="col-md-8">
+			<div class="panel panel-default">
+				<div class="panel-body">
+
+					<ul class="list-unstyled">
+						<li>
+							<p>Name: {{item.name}}</p>
+							<p><a class="btn btn-sm btn-primary" ng-href="{{item.zipball_url}}">Zipball</a></p>
+							<p><a class="btn btn-sm btn-primary" ng-href="{{item.tarball_url}}">Tarball</a></p>
+							<p><a class="btn btn-sm btn-primary" ng-href="#/repos/{{owner}}/{{repo}}/commits/{{item.commit.sha}}">Commit URL</a></p>
+							<p>Commit SHA: {{item.commit.sha}} </p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,27 @@
+<div class="container">
+
+	<h1>
+		<button class="btn btn-default" ng-click="goBack()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+		Trees
+	</h1>
+
+	<div class="row" ng-repeat="file in tree">
+		<div class="col-md-10">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<ul class="list-unstyled">
+						<li>
+							<p>Path: {{file.path}}</p>
+							<p>Type: {{file.type}}</p>
+							<p>Size: {{file.size}}</p>
+							<p>Mode: {{file.mode}}</p>
+							<p>SHA: {{file.sha}}</p>
+							<p>URL: <a ng-href="{{file.url}}">{{file.url}}</a></p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,63 @@
+<div class="container">
+
+	<h1>
+		<button class="btn btn-default" ng-click="goBack()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+		Commits
+	</h1>
+
+	<a class="btn btn-default" ng-href="#/repos/{{owner}}/{{repo}}/commits/{{parentSHA}}">Previous Commit</a>
+
+	<div class="commits-details">
+		<h4>Message: {{message}}</h4>
+		<h4>Additions: {{stats.additions}}</h4>
+		<h4>Deletions: {{stats.deletions}}</h4>
+		<h4>Comment Count: {{commentCount}}</h4>
+	</div>
+
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="col-md-4">
+					<h2>Author</h2>
+					<p>Name: {{author.name}}</p>
+					<p>Email: {{author.email}}</p>
+					<p>Date: {{author.date}}</p>
+				</div>
+				<div class="col-md-4">
+					<h2>Committer</h2>
+					<p>Name: {{committer.name}}</p>
+					<p>Email: {{committer.email}}</p>
+					<p>Date: {{committer.date}}</p>
+				</div>
+				<div class="col-md-4">
+					<h2>Tree</h2>
+					<p>SHA: {{tree.sha}}</p>
+					<a class="btn btn-default" ng-href="#/repos/{{owner}}/{{repo}}/git/trees/{{tree.sha}}">Tree URL</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h2 class="commits-files-header">Files</h2>
+
+	<div class="row" ng-repeat="file in files">
+		<div class="panel panel-default">
+			<div class="panel-body">
+			<div class="col-md-12">
+				<ul class="list-unstyled">
+					<li>
+						<p>Filename: <a ng-href="{{file.blob_url}}">{{file.filename}}</a></p>
+						<p>Status: {{file.status}}</p>
+						<p>Additions: {{file.additions}}</p>
+						<p>Deletions: {{file.deletions}}</p>
+						<p>Changes: {{file.changes}}</p>
+					</li>
+				</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+</div>

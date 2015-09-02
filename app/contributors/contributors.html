@@ -1,0 +1,29 @@
+<div class="container">
+
+	<h1>
+		<button class="btn btn-default" ng-click="goBack()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+		Contributors
+	</h1>
+
+	<h3>{{emptyMessage}}</h3>
+
+
+	<div class="row" ng-repeat="user in data">
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<ul class="list-unstyled">
+						<li>
+							<a ng-href="#/users/{{user.login}}"><img class="pull-left subscribers-img" ng-src="{{user.avatar_url}}" style="width:230px;height:230px;"></a>
+							<p><a class="btn btn-default" ng-href="#/users/{{user.login}}">{{user.login}}</a></p>
+							<p>ID: {{user.id}}</p>
+							<p>Type: {{user.type}}</p>
+							<p>Site Admin: {{user.site_admin}}</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

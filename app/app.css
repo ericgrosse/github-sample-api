@@ -1,0 +1,85 @@
+/* app css stylesheet */
+
+.commits-details {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.commits-files-header {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.subscribers-img {
+  margin-right: 20px;
+}
+
+.user-img {
+  margin-right: 30px;
+  margin-bottom: 10px;
+}
+
+.home-radio-button{
+  display: none;
+}
+
+/* angular animations */
+
+/*more-results*/
+.more-results.ng-hide-add {
+  transition: opacity 500ms;
+}
+
+.more-results.ng-hide-remove {
+  transition: opacity 1000ms;
+}
+
+.more-results.ng-hide-add-active,
+.more-results.ng-hide-remove {
+  opacity: 0;
+}
+
+.more-results.ng-hide-remove-active {
+  opacity: 1;
+}
+
+/**/
+section.ng-enter, [ui-view].ng-enter {
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+section.ng-enter-active, [ui-view].ng-enter-active {
+  opacity: 1;
+}
+
+/* default styles */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}

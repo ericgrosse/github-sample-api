@@ -1,0 +1,189 @@
+<div class="container">
+
+	<h1>Github</h1>
+
+	<div class="row">
+		<div class="col-md-4">
+			<form name="queryForm" novalidate>
+				<div class="form-group">
+					<label>
+						Query
+						<input class="form-control" type="text" ng-model="query" placeholder="Enter a search query" required>
+					</label>
+				</div>
+				<div class="form-group">
+					<label>
+						Sort By <br/>
+						<div class="btn-group btn-group-sm">
+							<label class="btn btn-default active home-radio-button-sort">
+								<input class="home-radio-button" type="radio" ng-model="sortOptions" value="">
+								Default
+							</label>
+							<label class="btn btn-default home-radio-button-sort">
+								<input class="home-radio-button" type="radio" ng-model="sortOptions" value="stars">
+								Stars
+							</label>
+							<label class="btn btn-default home-radio-button-sort">
+								<input class="home-radio-button" type="radio" ng-model="sortOptions" value="fork">
+								Fork
+							</label>
+							<label class="btn btn-default home-radio-button-sort">
+								<input class="home-radio-button" type="radio" ng-model="sortOptions" value="updated">
+								Updated
+							</label>
+						</div>
+					</label>
+				</div>
+				<div class="form-group">
+					<label>
+						Order By <br/>
+						<div class="btn-group btn-group-sm">
+							<label class="btn btn-default active home-radio-button-order">
+								<input class="home-radio-button" type="radio" ng-model="sortOrder" value="descending">
+								Descending
+							</label>
+							<label class="btn btn-default home-radio-button-order">
+								<input class="home-radio-button" type="radio" ng-model="sortOrder" value="ascending">
+								Ascending
+							</label>
+						</div>
+					</label>
+				</div>
+				<div class="form-group">
+					<label>
+						Results Per Page
+						<input class="form-control" type="number" ng-model="resultsPerPage">
+					</label>
+				</div>
+
+				<div class="form-group">
+					<button class="btn btn-default" ng-click="githubSearch(query, sortOptions, sortOrder, 1, resultsPerPage)" ng-disabled="!queryForm.$valid">Submit</button> <span class="spinner" ng-show="loading"><img ng-src="img/loader.gif"></span>
+				</div>
+
+			</form>
+		</div>
+
+
+		<div class="col-md-4" ng-show="showSearchResults">
+			<div class="form-group">
+				<label>Filter results <input class="form-control" type="text" ng-model="filterResults"></label>
+			</div>
+			<div class="form-group">
+				<label>Limit results <input class="form-control" type="text" ng-model="limitResults"></label>
+			</div>
+			<label>
+				Sort By <br>
+				<div class="btn-group btn-group-sm">
+					<label class="btn btn-default active home-radio-button-live">
+						<input class="home-radio-button" type="radio" ng-model="sortResults" value="">
+						Default
+					</label>
+					<label class="btn btn-default home-radio-button-live">
+						<input class="home-radio-button" type="radio" ng-model="sortResults" value="id">
+						ID
+					</label>
+					<label class="btn btn-default home-radio-button-live">
+						<input class="home-radio-button" type="radio" ng-model="sortResults" value="name">
+						Name
+					</label>
+				</div>
+			</label>
+
+		</div>
+
+
+	</div>
+
+	<div ng-show="showSearchResults">
+
+		<hr>
+
+		<h3>{{totalResults}}</h2>
+			<h4>Displaying results {{lowerLimit}} to {{upperLimit}}</h4>
+
+			<nav>
+				<ul class="pagination">
+
+					<li><button class="btn btn-default" class="btn btn-default" ng-click="goToPage(1)" ng-disabled="page == 1">«</button></li>
+					<li><button class="btn btn-default" ng-click="goToPage(page-1)" ng-disabled="page == 1">‹</button></li>
+
+					<li ng-repeat="i in getNumber(totalPages) | limitTo: 10 track by $index">
+						<button class="btn btn-default" 
+						ng-click="goToPage($index + pageOffset + 1)"
+						ng-disabled="$index + pageOffset + 1 == page"
+						ng-hide="$index + pageOffset + 1 > totalPages"
+						>
+						{{$index + pageOffset + 1}}
+					</button>
+				</li>
+
+				<li><button class="btn btn-default" ng-click="goToPage(page+1)" ng-disabled="page == totalPages">›</button></li>
+				<li><button class="btn btn-default" ng-click="goToPage(totalPages)" ng-disabled="page == totalPages">»</button></li>
+
+			</ul>
+		</nav>
+
+		<div class="row" ng-repeat="item in data | filter: filterResults | orderBy: sortResults | limitTo: limitResults">
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<ul class="list-unstyled">
+							<li>
+								<p>ID: {{item.id}}</p>
+								<p>Name: {{item.name}}</p>
+								<p>Full Name: {{item.full_name}}</p>
+								<p>Created at: {{item.created_at | date: 'MM/dd/yyyy'}}</p>
+								<p>Updated At: {{item.updated_at | date: 'MM/dd/yyyy'}}</p>
+								<p>Description: {{item.description | nonEmpty}}</p>
+
+								<a class="btn btn-default" ng-href="#/repos/{{item.full_name}}/contributors">Contributors</a>		
+								<a class="btn btn-default" ng-href="#/repos/{{item.full_name}}/languages">Languages</a>
+								<a class="btn btn-default" ng-href="#/repos/{{item.full_name}}/stargazers">Stargazers</a>
+								<a class="btn btn-default" ng-href="#/repos/{{item.full_name}}/subscribers">Subscribers</a>
+								<a class="btn btn-default" ng-href="#/repos/{{item.full_name}}/tags">Tags</a>
+								<br/><br/>
+
+								<div ng-show="moreResults" class="more-results">
+
+									<!-- URLs -->
+									<!--<p>URL: <a ng-href="{{item.url}}">{{item.url}}</a></p>-->
+									<!--<p>Events URL: <a ng-href="{{item.events_url}}">{{item.events_url}}</a></p>-->
+									<!--<p>Forks URL: <a ng-href="{{item.forks_url}}">{{item.forks_url}}</a></p>-->
+
+									<p>
+										Homepage: 
+										<a ng-show="item.homepage.length > 0" ng-href="{{item.homepage}}">{{item.homepage}}</a>
+										<span ng-hide="item.homepage.length > 0">Not specified</span>
+									</p>
+									<p>Html URL: <a ng-href="{{item.html_url}}">{{item.html_url}}</a></p>
+									<p>Clone URL: <a ng-href="{{item.clone_url}}">{{item.clone_url}}</a></p>
+									<p>Default branch: {{item.default_branch}}</p>
+									<p>Fork: {{item.fork}}</p>
+									<p>Forks: {{item.forks}}</p>
+									<p>Has downloads: {{item.has_downloads}}</p>
+									<p>Has issues: {{item.has_issues}}</p>
+									<p>Has pages: {{item.has_pages}}</p>
+									<p>Has wiki: {{item.has_wiki}}</p>
+									<p>Language: {{item.language | nonEmpty}}</p>
+									<p>Open Issues: {{item.open_issues}}</p>
+									<!-- <p>Owner: {{item.owner}}</p>  -->
+									<p>Private: {{item.private}}</p>
+									<p>Score: {{item.score}}</p>
+									<p>Size: {{item.size}}</p>
+									<p>Stargazers Count: {{item.stargazers_count}}</p>
+									<p>Watchers Count: {{item.watchers_count}}</p>
+
+								</div>
+
+								<button class="btn btn-primary" ng-click="moreResults=!moreResults">Show more</button>
+
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
