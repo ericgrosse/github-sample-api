@@ -1,8 +1,14 @@
-To run the program, open command line and navigate to the folder's directory.
-Type in "npm start" and hit enter
-You should see a message "Starting up http server, serving ./ on port: 8000"
-In your browser of choice, type in localhost:8000/app
-This will redirect you to localhost:8000/app/#home, which is the homepage of the app.
+To run the program, open command line and navigate to the folder's root directory. Run:
+
+```
+npm install
+bower install
+npm start
+```
+
+You should see a message `Starting up http server, serving ./app on port: 8000`
+In your browser of choice, type in `localhost:8000`
+This will redirect you to `localhost:8000/#home`, which is the homepage of the app.
 
 The homepage allows you to search for github repositories. The validation is set up
 such that you cannot even hit the submit button until a query is entered into the 
